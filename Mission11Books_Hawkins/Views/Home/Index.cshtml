@@ -4,22 +4,16 @@
 
 @model BooksListViewModel
 
-    <h1>Some books that are cool</h1>
+<h3 class="text-center">Check out some of these books...</h3>
 
-    @foreach (Book b in Model.Books)
+<div class="row">
+    @foreach (var b in Model.Books)
     {
-        <h3>@b.Title</h3>
-
-        <ul>
-            <li>Author: @b.Author</li>
-            <li>Publisher: @b.Publisher</li>
-            <li>ISBN: @b.Isbn</li>
-            <li>Classfication: @b.Classification</li>
-            <li>Category: @b.Category</li>
-            <li>Number of page: @b.PageCount</li>
-            <li>Price: : $ @b.Price</li>
-        </ul>
-
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <partial name="BookSummary" model="b" />
+        </div>
     }
+</div>
 
-<div page-model="@Model.PaginationInfo" page-action="Index"></div>
+<div page-model="@Model.PaginationInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>

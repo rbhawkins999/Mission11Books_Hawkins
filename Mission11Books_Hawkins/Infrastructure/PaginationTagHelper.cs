@@ -22,6 +22,10 @@ namespace Mission11Books_Hawkins.Infrastructure
         public ViewContext? ViewContext { get; set; }
         public string? PageAction { get; set; }
         public PaginationInfo PageModel { get; set; }
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; } = String.Empty;
+        public string PageClassNormal { get; set; } = String.Empty;
+        public string PageClassSelected { get; set; } = String.Empty;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -35,6 +39,11 @@ namespace Mission11Books_Hawkins.Infrastructure
                 {
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new {pageNum = iCount});
+                    if (PageClassesEnabled)
+                    {
+                        tag.AddCssClass(PageClass);
+                        tag.AddCssClass(iCount == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                    }
                     tag.InnerHtml.Append(iCount.ToString());
                     result.InnerHtml.AppendHtml(tag);
                 }
